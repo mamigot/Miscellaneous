@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# This script removes unwanted strings that are just before
+# the file extension. For example, it converts from
+# fileOne_512.png to fileOne.png. The user just needs
+# to set the filename extension in variable $EXT and
+# the pattern that must be removed in $REMOVE.
+
+# ---------------------
+# How to run this file:
+
+# Set execute permissions (on Terminal):
+# $ chmod 755 changeFilenames
+
+# Execute the file:
+# $ ./changeFilenames
+
+
+# Set file extensions e.g. png, txt...
+EXT=png
+# Extension that must be removed
+REMOVE=_512
+
+# Only iterate over files ending in $REMOVE.$EXT
+for FILENAME in *$REMOVE.$EXT
+do
+  # http://tldp.org/LDP/abs/html/string-manipulation.html
+  NEWFILENAME=${FILENAME%$REMOVE.$EXT}.$EXT
+  mv $FILENAME $NEWFILENAME
+  echo "Changed $FILENAME to $NEWFILENAME"
+done
