@@ -61,27 +61,43 @@ function getDistanceMiles(response){
  */
 function onOpen(){
   for(var i = 0; i < namesList.length; i++){
-    //Each API call takes 1 second to avoid saturation (API doesn't respond otherwise).
-    Utilities.sleep(1000);
-    var curr = namesList[i];
-    var fullURL = url + curr;
+    /* If an API call fails once, try it maxReps number of times because it might
+     * return a proper value the following times despite Utilities.slep(1000)...
+     * Of course, if the format of the provided location is wrong, after maxReps
+     * times the program will be interrupted and the proper error message will show.
+     */
+    var repCounter = 0;
+    var maxReps = 3;
     
-    var response = UrlFetchApp.fetch(fullURL);
-    var JSONresponse = JSON.parse(response);
+    do{
+      //Each API call takes 1 second to avoid saturation (API doesn't respond otherwise).
+      Utilities.sleep(1000);
+      var curr = namesList[i];
+      var fullURL = url + curr;
     
-    var distance = getDistanceMiles(JSONresponse);
-    if(distance == 0){
-      var errMessage = "Bad response for " + curr;
-      ui.alert(errMessage);
-      Logger.log(errMessage);
-      return;
+      var response = UrlFetchApp.fetch(fullURL);
+      var JSONresponse = JSON.parse(response);
+    
+      var distance = getDistanceMiles(JSONresponse);
+      if(distance == 0){
+        repCounter++;
+        
+        if(repCounter < maxReps){
+          var errMessage = "Bad response for " + curr;
+          ui.alert(errMessage);
+          Logger.log(errMessage);
+          return;
+        }
  
-    }else{
-      //Write the distance to the cell
-      var properField = sheet.getRange(i + 1, distanceStartColumn, 1, 1);
-      properField.setValue(distance);
-      Logger.log(curr + ": " + distance);
-    }
+      }else{
+        //Write the distance to the cell
+        var properField = sheet.getRange(i + 1, distanceStartColumn, 1, 1);
+        properField.setValue(distance);
+        Logger.log(curr + ": " + distance);
+        break;
+      }
+    }while(repCounter < maxReps)
+    
     
   }
   
