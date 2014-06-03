@@ -101,6 +101,8 @@ function onOpen(){
     
   }
   
+  //Sort the sheet according to the distance fields
+  //https://developers.google.com/apps-script/reference/spreadsheet/sheet#sort(columnPosition)
   sheet.sort(distanceStartColumn);
     
 }
