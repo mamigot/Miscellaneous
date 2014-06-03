@@ -5,6 +5,14 @@
  * Each API call takes 1 second to avoid saturation (API doesn't respond otherwise).
  * Runs the onOpen() function first.
  *
+ * Spreadsheet currently looks like e.g.:
+ * |---NAME-----------------|---DISTANCE (mi)---|
+ * |------------------------|-------------------|
+ * | Purchase College       | 5.1               |
+ * | Manhattanville College | 7.5               |
+ * | Iona College           | 12.8              |
+ * |------------------------|-------------------|
+ *
  * See: https://developers.google.com/apps-script/reference/spreadsheet/
  */
 var startingPoint = "Greenwich,CT";
