@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Append this function and this alias command
+# to your file of environment variables.
+# Afterwards, save the file and restart the
+# command line to use it.
+
+# ---------------------
+
+# Shortcut to get the response code from a URL
+# Ex.: pass the following:
+# status "http://iblstudios.com"
+function get_http_status()
+{
+  # The $1 refers to the first argument that was passed
+  # (in this case, a link)
+  # http://stackoverflow.com/questions/6212219/passing-parameters-to-a-bash-function
+  echo "$1"
+  curl -sL -w "%{http_code} \\n" "$1" -o /dev/null;
+}
+alias shttp=get_http_status
