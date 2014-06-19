@@ -26,7 +26,7 @@ Follow the steps detailed in <a href="https://www.youtube.com/watch?v=3Dgfp6hLzn
 <br />
 3. Reference them accordingly from the HTML templates.
 ---At the very top, call "{% load static %}"
----When retreiving a file, use e.g .: "<link href="{% static 'assets/bootstrap-3.1.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">"
+---When retreiving a file, use e.g .: "< link href="{% static 'assets/bootstrap-3.1.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" media="screen" >" (don't leave spaces between the starting and ending "<" and ">" tags!).
 <br />
 4. Run the Django program that will properly copy your files into the location it can use by typing "python manage.py collectstatic" (and saying "yes" after).
 ---If you are in a virtual environment and this doesn't work, make sure you are using the version of Python that the virtual environment has been running on by typing e.g. "../bin/python3.3 manage.py collectstatic".
